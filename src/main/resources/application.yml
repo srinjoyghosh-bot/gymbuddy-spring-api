@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: Gym Buddy API
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/gymbuddy
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: mysql
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+app:
+  jwt-secret: 3cfa76ef14937c1c0ea519f8fc057a80fcd04a7420f8e8bcd0a7567c272e007b
+  jwt-expiration-milliseconds: 3600000
