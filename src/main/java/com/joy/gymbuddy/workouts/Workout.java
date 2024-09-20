@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -34,9 +35,9 @@ public class Workout extends BaseEntity {
     @ElementCollection
     private List<Repetition> reps;
     @CreationTimestamp
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
     @UpdateTimestamp
-    private LocalDateTime updatedAt;
+    private LocalDate updatedAt;
     @ManyToOne
     @JoinColumn(name = "profile_id")
     @JsonBackReference
