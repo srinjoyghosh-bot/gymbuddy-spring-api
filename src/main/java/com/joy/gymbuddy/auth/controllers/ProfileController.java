@@ -26,6 +26,11 @@ public class ProfileController {
         //TODO add meal response dto
         return new ResponseEntity<>(new ApiResponse<>(true, "Meal added", mealDTO), HttpStatus.CREATED);
     }
+    @DeleteMapping("/meal/delete/{mealId}")
+    public ResponseEntity<ApiResponse<?>> deleteMeal(@PathVariable Integer mealId,@RequestParam Integer profileId ) {
+        profileService.removeMealFromProfile(mealId, profileId);
+        return new ResponseEntity<>(new ApiResponse<>(true,"Meal Deleted",null), HttpStatus.OK);
+    }
 
     @PostMapping("/workout/add")
     public ResponseEntity<ApiResponse<WorkoutDTO>> addWorkout(@RequestBody WorkoutDTO workoutDTO) {
