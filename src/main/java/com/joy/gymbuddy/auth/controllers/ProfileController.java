@@ -39,6 +39,12 @@ public class ProfileController {
         return new ResponseEntity<>(new ApiResponse<>(true, "Workout added", workoutDTO), HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/workout/delete/{workoutId}")
+    public ResponseEntity<ApiResponse<?>> deleteWorkout(@PathVariable Integer workoutId,@RequestParam Integer profileId ) {
+        profileService.removeWorkoutFromProfile(workoutId, profileId);
+        return new ResponseEntity<>(new ApiResponse<>(true,"Workout Deleted",null), HttpStatus.OK);
+    }
+
     @PutMapping("/update")
     public ResponseEntity<ApiResponse<ProfileDTO>> updateProfile(@Valid @RequestBody ProfileDTO profileDTO) {
         var profile = profileService.update(profileDTO);

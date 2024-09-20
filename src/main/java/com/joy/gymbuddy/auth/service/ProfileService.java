@@ -5,13 +5,12 @@ import com.joy.gymbuddy.auth.models.Profile;
 import com.joy.gymbuddy.auth.repo.ProfileRepository;
 import com.joy.gymbuddy.meals.Meal;
 import com.joy.gymbuddy.meals.MealDTO;
-import com.joy.gymbuddy.workouts.Workout;
-import com.joy.gymbuddy.workouts.WorkoutDTO;
-import com.joy.gymbuddy.workouts.WorkoutPR;
-import com.joy.gymbuddy.workouts.WorkoutPRRepository;
+import com.joy.gymbuddy.workouts.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -100,5 +99,31 @@ public class ProfileService {
             return profileRepository.save(profileProfile);
         }
         return null;
+    }
+
+    public void removeWorkoutFromProfile(Integer workoutId, Integer profileId) {
+        Optional<Profile> optionalProfile = profileRepository.findById(profileId);
+        if(optionalProfile.isPresent()) {
+            var profile = optionalProfile.get();
+            var optionalWorkout=profile.getWorkouts().stream().filter(workout -> workout.getId().equals(workoutId)).findFirst();
+            if(optionalWorkout.isPresent()) {
+                var workout = optionalWorkout.get();
+                var maxRep=workout.getMaxRep();
+                profile.removeWorkout(workout);
+                var optionalPr=profile.getPrs().stream().filter(pr -> pr.getName().equals(workout.getName())).findFirst();
+                if(optionalPr.isPresent()) {
+                    var pr = optionalPr.get();
+                    if(Objects.equals(maxRep, pr.getResistance())){
+                        var newPr=profile.getWorkouts().stream().filter(workout1->workout1.getName().equals(workout.getName())).flatMap(workout1 -> workout1.getReps().stream()).map(Repetition::getResistance).max(Comparator.naturalOrder());
+                        if(newPr.isPresent()){
+                            pr.setResistance(newPr.get());
+                        }else{
+                            profile.removePr(pr);
+                        }
+                    }
+                }
+            }
+            profileRepository.save(profile);
+        }
     }
 }

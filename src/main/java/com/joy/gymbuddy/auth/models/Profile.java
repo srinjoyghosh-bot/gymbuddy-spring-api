@@ -68,6 +68,10 @@ public class Profile extends BaseEntity {
         prs.add(workoutPR);
         workoutPR.setProfile(this);
     }
+    public void removePr(WorkoutPR workoutPR) {
+        prs.remove(workoutPR);
+        workoutPR.setProfile(null);
+    }
     public void updatePR(WorkoutPR workoutPR,Double resistance) {
         WorkoutPR newPr=new WorkoutPR();
         newPr.setResistance(resistance);
