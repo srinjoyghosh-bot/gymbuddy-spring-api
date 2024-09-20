@@ -22,42 +22,32 @@ public class ProfileController {
 
     @PostMapping("/meal/add")
     public ResponseEntity<ApiResponse<MealDTO>> addMeal(@RequestBody MealDTO mealDTO) {
-        var profile=profileService.addMealToProfile(mealDTO);
+        var profile = profileService.addMealToProfile(mealDTO);
         //TODO add meal response dto
-        return new ResponseEntity<>(new ApiResponse<>(true,"Meal added",mealDTO), HttpStatus.CREATED);
+        return new ResponseEntity<>(new ApiResponse<>(true, "Meal added", mealDTO), HttpStatus.CREATED);
     }
-
-    @GetMapping("/meal/get")
-    public ResponseEntity<ApiResponse<List<Meal>>> getMeal(@RequestParam Integer profileId) {
-        var profile=profileService.get(profileId);
-        if(profile==null){
-            return new ResponseEntity<>(new ApiResponse<>(false,"Profile not found",null),HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(new ApiResponse<>(true,"Meals fetched",profile.getMeals()),HttpStatus.OK);
-    }
-
 
     @PostMapping("/workout/add")
     public ResponseEntity<ApiResponse<WorkoutDTO>> addWorkout(@RequestBody WorkoutDTO workoutDTO) {
-        var profile=profileService.addWorkoutToProfile(workoutDTO);
+        var profile = profileService.addWorkoutToProfile(workoutDTO);
         //TODO add workout response dto
-        return new ResponseEntity<>(new ApiResponse<>(true,"Workout added",workoutDTO), HttpStatus.CREATED);
+        return new ResponseEntity<>(new ApiResponse<>(true, "Workout added", workoutDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
     public ResponseEntity<ApiResponse<ProfileDTO>> updateProfile(@Valid @RequestBody ProfileDTO profileDTO) {
-        var profile=profileService.update(profileDTO);
-        return new ResponseEntity<>(new ApiResponse<>(true,"Profile updated",profileDTO), HttpStatus.OK);
+        var profile = profileService.update(profileDTO);
+        return new ResponseEntity<>(new ApiResponse<>(true, "Profile updated", profileDTO), HttpStatus.OK);
     }
 
     @GetMapping("/get/{id}")
     public ResponseEntity<ApiResponse<ProfileDTO>> getProfile(@PathVariable Integer id) {
-        var profile=profileService.get(id);
-        if(profile==null){
-            return new ResponseEntity<>(new ApiResponse<>(false,"Profile not found",null),HttpStatus.NOT_FOUND);
+        var profile = profileService.get(id);
+        if (profile == null) {
+            return new ResponseEntity<>(new ApiResponse<>(false, "Profile not found", null), HttpStatus.NOT_FOUND);
         }
-        ProfileDTO dto= new ProfileDTO(profile.getUserName(),profile.getProfilePhoto(),profile.getId());
-        return new ResponseEntity<>(new ApiResponse<>(true,"Profile found",dto),HttpStatus.OK);
+        ProfileDTO dto = new ProfileDTO(profile.getUserName(), profile.getProfilePhoto(), profile.getId());
+        return new ResponseEntity<>(new ApiResponse<>(true, "Profile found", dto), HttpStatus.OK);
     }
 
 }
