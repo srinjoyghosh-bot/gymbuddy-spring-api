@@ -1,5 +1,6 @@
 package com.joy.gymbuddy.meals;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.joy.gymbuddy.BaseEntity;
 import com.joy.gymbuddy.auth.models.Profile;
 import jakarta.persistence.*;
@@ -31,5 +32,6 @@ public class Meal extends BaseEntity {
     private LocalDateTime updatedAt;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "profile_id")
+    @JsonBackReference
     private Profile profile;
 }

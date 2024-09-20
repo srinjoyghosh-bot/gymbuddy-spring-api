@@ -1,5 +1,6 @@
 package com.joy.gymbuddy.auth.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.joy.gymbuddy.BaseEntity;
 import com.joy.gymbuddy.workouts.Workout;
 import com.joy.gymbuddy.workouts.WorkoutPR;
@@ -22,13 +23,15 @@ public class Profile extends BaseEntity {
     private String profilePhoto;
 
     @OneToMany(mappedBy = "profile",cascade = CascadeType.ALL,orphanRemoval = true)
+    @JsonManagedReference
     private List<Workout> workouts;
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "profile",orphanRemoval = true)
+    @JsonManagedReference
     private List<Meal> meals;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "profile_id", referencedColumnName = "id")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "profile",orphanRemoval = true)
+    @JsonManagedReference
     @Column(name = "workout_personal_records")
     private List<WorkoutPR> prs;
 
@@ -63,6 +66,7 @@ public class Profile extends BaseEntity {
             prs = new ArrayList<>();
         }
         prs.add(workoutPR);
+        workoutPR.setProfile(this);
     }
     public void updatePR(WorkoutPR workoutPR,Double resistance) {
         WorkoutPR newPr=new WorkoutPR();

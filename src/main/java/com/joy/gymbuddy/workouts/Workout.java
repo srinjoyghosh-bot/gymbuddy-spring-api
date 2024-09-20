@@ -1,5 +1,6 @@
 package com.joy.gymbuddy.workouts;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.joy.gymbuddy.BaseEntity;
 import com.joy.gymbuddy.auth.models.Profile;
 import jakarta.persistence.ElementCollection;
@@ -38,6 +39,7 @@ public class Workout extends BaseEntity {
     private LocalDateTime updatedAt;
     @ManyToOne
     @JoinColumn(name = "profile_id")
+    @JsonBackReference
     private Profile profile;
 
     public Double getMaxRep() {

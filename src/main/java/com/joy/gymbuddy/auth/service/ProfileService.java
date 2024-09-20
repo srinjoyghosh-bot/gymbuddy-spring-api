@@ -1,5 +1,6 @@
 package com.joy.gymbuddy.auth.service;
 
+import com.joy.gymbuddy.auth.dto.ProfileDTO;
 import com.joy.gymbuddy.auth.models.Profile;
 import com.joy.gymbuddy.auth.repo.ProfileRepository;
 import com.joy.gymbuddy.meals.Meal;
@@ -24,6 +25,22 @@ public class ProfileService {
         Profile profile = new Profile();
         profile.setUserName("User Name");
         return profileRepository.save(profile);
+    }
+
+    public Profile update(ProfileDTO profileDTO) {
+        Optional<Profile> profile = profileRepository.findById(profileDTO.profileId());
+        if (profile.isPresent()) {
+            var profileProfile = profile.get();
+            profileProfile.setProfilePhoto(profileDTO.profilePhoto());
+            profileProfile.setUserName(profileDTO.userName());
+            return profileRepository.save(profileProfile);
+        }
+        return null;
+    }
+
+    public Profile get(Integer profileId) {
+        var profile=profileRepository.findById(profileId);
+        return profile.orElse(null);
     }
 
     public Profile addMealToProfile(MealDTO dto) {
@@ -57,16 +74,16 @@ public class ProfileService {
             var profileProfile = profile.get();
             profileProfile.addWorkout(workout);
             double maxResistance=workout.getMaxRep();
-            //TODO update PR
-            var pr=workoutPRRepository.findByName(workout.getName());
+            // update PR
+            var prs=profileProfile.getPrs();
+            var pr=prs.stream().filter(record->record.getName().equals(dto.name())).findFirst();
             var newPr=new WorkoutPR();
             newPr.setName(workout.getName());
             newPr.setResistance(maxResistance);
-            if(pr==null){
+            if(pr.isEmpty()){
                 profileProfile.addWorkoutPR(newPr);
-            }else if(maxResistance>pr.getResistance()){
-                workoutPRRepository.delete(pr);
-                profileProfile.updatePR(pr,maxResistance);
+            }else if(maxResistance>pr.get().getResistance()){
+                pr.get().setResistance(maxResistance);
             }
             return profileRepository.save(profileProfile);
         }

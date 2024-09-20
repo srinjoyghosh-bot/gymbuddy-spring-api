@@ -4,6 +4,8 @@ import com.joy.gymbuddy.auth.models.Profile;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class MealService {
@@ -19,5 +21,9 @@ public class MealService {
         meal.setProtein(dto.protein());
         meal.setServingSize(dto.servingSize());
         return mealRepository.save(meal);
+    }
+
+    public List<Meal> getMealsByProfile(Integer profileId){
+        return mealRepository.findAllByProfileId(profileId);
     }
 }
