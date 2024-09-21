@@ -2,13 +2,16 @@ package com.joy.gymbuddy.auth.service;
 
 import com.joy.gymbuddy.auth.dto.ProfileDTO;
 import com.joy.gymbuddy.auth.models.Profile;
+import com.joy.gymbuddy.auth.models.User;
 import com.joy.gymbuddy.auth.repo.ProfileRepository;
 import com.joy.gymbuddy.meals.Meal;
 import com.joy.gymbuddy.meals.MealDTO;
 import com.joy.gymbuddy.workouts.*;
 import lombok.AllArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.Comparator;
 import java.util.Objects;
 import java.util.Optional;
@@ -25,8 +28,9 @@ public class ProfileService {
         return profileRepository.save(profile);
     }
 
-    public Profile update(ProfileDTO profileDTO) {
-        Optional<Profile> profile = profileRepository.findById(profileDTO.profileId());
+    public Profile update(ProfileDTO profileDTO, Principal connectedUser) {
+        var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
+        Optional<Profile> profile = profileRepository.findProfileByUserId(user.getId());
         if (profile.isPresent()) {
             var profileProfile = profile.get();
             profileProfile.setProfilePhoto(profileDTO.profilePhoto());
@@ -36,12 +40,15 @@ public class ProfileService {
         return null;
     }
 
-    public Profile get(Integer profileId) {
-        var profile = profileRepository.findById(profileId);
+    public Profile get(Principal connectedUser) {
+        var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
+        var profile = profileRepository.findById(user.getId());
+        //TODO throw exception for or else
         return profile.orElse(null);
     }
 
-    public Profile addMealToProfile(MealDTO dto) {
+    public Profile addMealToProfile(MealDTO dto, Principal connectedUser) {
+        var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
         Meal meal = new Meal();
         meal.setBrand(dto.brand());
         meal.setName(dto.name());
@@ -50,7 +57,7 @@ public class ProfileService {
         meal.setCarbs(dto.carbs());
         meal.setProtein(dto.protein());
         meal.setServingSize(dto.servingSize());
-        Optional<Profile> profile = profileRepository.findById(dto.profileId());
+        Optional<Profile> profile = profileRepository.findProfileByUserId(user.getId());
         if (profile.isPresent()) {
             var profileProfile = profile.get();
             profileProfile.addMeal(meal);
@@ -60,8 +67,9 @@ public class ProfileService {
         return null;
     }
 
-    public void removeMealFromProfile(Integer mealId, Integer profileId) {
-        Optional<Profile> profile = profileRepository.findById(profileId);
+    public void removeMealFromProfile(Integer mealId, Principal connectedUser) {
+        var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
+        Optional<Profile> profile = profileRepository.findProfileByUserId(user.getId());
         if (profile.isPresent()) {
             var profileProfile = profile.get();
             var profileMeals = profileProfile.getMeals();
@@ -72,7 +80,8 @@ public class ProfileService {
         //TODO throw exception
     }
 
-    public Profile addWorkoutToProfile(WorkoutDTO dto) {
+    public Profile addWorkoutToProfile(WorkoutDTO dto, Principal connectedUser) {
+        var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
         Workout workout = new Workout();
         workout.setName(dto.name());
         workout.setCategory(dto.category());
@@ -80,7 +89,7 @@ public class ProfileService {
         workout.setReps(dto.reps());
         workout.setPrimaryMuscles(dto.primaryMuscles());
         workout.setSecondaryMuscles(dto.secondaryMuscles());
-        Optional<Profile> profile = profileRepository.findById(dto.profileId());
+        Optional<Profile> profile = profileRepository.findProfileByUserId(user.getId());
         if (profile.isPresent()) {
             var profileProfile = profile.get();
             profileProfile.addWorkout(workout);
@@ -101,29 +110,32 @@ public class ProfileService {
         return null;
     }
 
-    public void removeWorkoutFromProfile(Integer workoutId, Integer profileId) {
-        Optional<Profile> optionalProfile = profileRepository.findById(profileId);
-        if(optionalProfile.isPresent()) {
+    public void removeWorkoutFromProfile(Integer workoutId, Principal connectedUser) {
+        var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
+        Optional<Profile> optionalProfile = profileRepository.findProfileByUserId(user.getId());
+        if (optionalProfile.isPresent()) {
             var profile = optionalProfile.get();
-            var optionalWorkout=profile.getWorkouts().stream().filter(workout -> workout.getId().equals(workoutId)).findFirst();
-            if(optionalWorkout.isPresent()) {
+            var optionalWorkout = profile.getWorkouts().stream().filter(workout -> workout.getId().equals(workoutId)).findFirst();
+            if (optionalWorkout.isPresent()) {
                 var workout = optionalWorkout.get();
-                var maxRep=workout.getMaxRep();
+                var maxRep = workout.getMaxRep();
                 profile.removeWorkout(workout);
-                var optionalPr=profile.getPrs().stream().filter(pr -> pr.getName().equals(workout.getName())).findFirst();
-                if(optionalPr.isPresent()) {
+                var optionalPr = profile.getPrs().stream().filter(pr -> pr.getName().equals(workout.getName())).findFirst();
+                if (optionalPr.isPresent()) {
                     var pr = optionalPr.get();
-                    if(Objects.equals(maxRep, pr.getResistance())){
-                        var newPr=profile.getWorkouts().stream().filter(workout1->workout1.getName().equals(workout.getName())).flatMap(workout1 -> workout1.getReps().stream()).map(Repetition::getResistance).max(Comparator.naturalOrder());
-                        if(newPr.isPresent()){
+                    if (Objects.equals(maxRep, pr.getResistance())) {
+                        var newPr = profile.getWorkouts().stream().filter(workout1 -> workout1.getName().equals(workout.getName())).flatMap(workout1 -> workout1.getReps().stream()).map(Repetition::getResistance).max(Comparator.naturalOrder());
+                        if (newPr.isPresent()) {
                             pr.setResistance(newPr.get());
-                        }else{
+                        } else {
                             profile.removePr(pr);
                         }
                     }
                 }
             }
+            //TODO else throw exception
             profileRepository.save(profile);
         }
+        //TODO else throw exception
     }
 }

@@ -35,6 +35,10 @@ public class Profile extends BaseEntity {
     @Column(name = "workout_personal_records")
     private List<WorkoutPR> prs;
 
+    @OneToOne
+    @JoinColumn(name = "user_id",nullable = false)
+    private User user;
+
     public void addMeal(Meal meal) {
         if(meals == null) {
             meals = new ArrayList<>();

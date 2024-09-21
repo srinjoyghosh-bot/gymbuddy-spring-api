@@ -13,6 +13,5 @@ public record WorkoutDTO(String name,
                          List<String> instructions,
                          String category,
 
-                         List<Repetition> reps,
-                         Integer profileId) {
+                         List<Repetition> reps) {
 }

@@ -8,6 +8,5 @@ public record MealDTO(String name,
                       String calories,
                       String fat,
                       String carbs,
-                      String protein,
-                      Integer profileId) {
+                      String protein) {
 }
