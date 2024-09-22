@@ -1,4 +1,4 @@
-package com.joy.gymbuddy.auth;
+package com.joy.gymbuddy.auth.annotation;
 
 import com.joy.gymbuddy.auth.repo.UserRepository;
 import jakarta.validation.ConstraintValidator;

@@ -1,4 +1,4 @@
-package com.joy.gymbuddy.workouts;
+package com.joy.gymbuddy.workouts.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.joy.gymbuddy.BaseEntity;

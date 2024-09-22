@@ -3,9 +3,8 @@ package com.joy.gymbuddy.auth.controllers;
 import com.joy.gymbuddy.ApiResponse;
 import com.joy.gymbuddy.auth.dto.ProfileDTO;
 import com.joy.gymbuddy.auth.service.ProfileService;
-import com.joy.gymbuddy.meals.Meal;
-import com.joy.gymbuddy.meals.MealDTO;
-import com.joy.gymbuddy.workouts.WorkoutDTO;
+import com.joy.gymbuddy.meals.dto.MealDTO;
+import com.joy.gymbuddy.workouts.dto.WorkoutDTO;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
 
 @RestController
 @RequestMapping("/profile")

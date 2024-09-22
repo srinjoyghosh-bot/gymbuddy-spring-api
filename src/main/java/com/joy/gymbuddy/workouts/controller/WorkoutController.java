@@ -1,6 +1,9 @@
-package com.joy.gymbuddy.workouts;
+package com.joy.gymbuddy.workouts.controller;
 
 import com.joy.gymbuddy.ApiResponse;
+import com.joy.gymbuddy.workouts.model.entities.WorkoutPR;
+import com.joy.gymbuddy.workouts.service.WorkoutService;
+import com.joy.gymbuddy.workouts.model.entities.Workout;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -12,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 

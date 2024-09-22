@@ -1,11 +1,9 @@
 package com.joy.gymbuddy.auth.service;
 
-import com.joy.gymbuddy.auth.dto.UserDTO;
-import com.joy.gymbuddy.auth.enums.Role;
+import com.joy.gymbuddy.auth.models.enums.Role;
 import com.joy.gymbuddy.auth.models.Profile;
 import com.joy.gymbuddy.auth.models.User;
 import com.joy.gymbuddy.auth.repo.UserRepository;
-import com.joy.gymbuddy.meals.Meal;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

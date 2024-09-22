@@ -1,6 +1,6 @@
-package com.joy.gymbuddy.workouts;
+package com.joy.gymbuddy.workouts.dto;
 
-import jakarta.persistence.ElementCollection;
+import com.joy.gymbuddy.workouts.model.Repetition;
 
 import java.util.List;
 

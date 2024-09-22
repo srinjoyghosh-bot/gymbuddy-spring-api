@@ -2,9 +2,9 @@ package com.joy.gymbuddy.auth.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.joy.gymbuddy.BaseEntity;
-import com.joy.gymbuddy.workouts.Workout;
-import com.joy.gymbuddy.workouts.WorkoutPR;
-import com.joy.gymbuddy.meals.Meal;
+import com.joy.gymbuddy.workouts.model.entities.Workout;
+import com.joy.gymbuddy.workouts.model.entities.WorkoutPR;
+import com.joy.gymbuddy.meals.models.Meal;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

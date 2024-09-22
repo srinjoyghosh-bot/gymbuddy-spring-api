@@ -1,4 +1,4 @@
-package com.joy.gymbuddy.meals;
+package com.joy.gymbuddy.meals.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.joy.gymbuddy.BaseEntity;
@@ -11,7 +11,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
 @Data

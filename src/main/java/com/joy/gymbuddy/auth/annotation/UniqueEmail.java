@@ -1,10 +1,7 @@
-package com.joy.gymbuddy.auth;
+package com.joy.gymbuddy.auth.annotation;
 
 import jakarta.validation.Constraint;
-import jakarta.validation.ConstraintValidator;
-import jakarta.validation.ConstraintValidatorContext;
 import jakarta.validation.Payload;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.annotation.*;
 

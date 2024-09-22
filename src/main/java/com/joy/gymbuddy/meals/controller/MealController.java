@@ -1,7 +1,8 @@
-package com.joy.gymbuddy.meals;
+package com.joy.gymbuddy.meals.controller;
 
 import com.joy.gymbuddy.ApiResponse;
-import com.joy.gymbuddy.auth.service.ProfileService;
+import com.joy.gymbuddy.meals.service.MealService;
+import com.joy.gymbuddy.meals.models.Meal;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 

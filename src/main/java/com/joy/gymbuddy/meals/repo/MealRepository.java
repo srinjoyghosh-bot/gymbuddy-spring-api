@@ -1,10 +1,10 @@
-package com.joy.gymbuddy.meals;
+package com.joy.gymbuddy.meals.repo;
 
+import com.joy.gymbuddy.meals.models.Meal;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository

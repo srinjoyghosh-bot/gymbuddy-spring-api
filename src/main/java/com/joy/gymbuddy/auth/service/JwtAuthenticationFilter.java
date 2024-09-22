@@ -1,6 +1,5 @@
-package com.joy.gymbuddy.auth;
+package com.joy.gymbuddy.auth.service;
 
-import com.joy.gymbuddy.auth.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

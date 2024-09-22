@@ -1,4 +1,4 @@
-package com.joy.gymbuddy.workouts;
+package com.joy.gymbuddy.workouts.model;
 
 import jakarta.persistence.Embeddable;
 import lombok.Data;

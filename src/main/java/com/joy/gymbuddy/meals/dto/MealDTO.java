@@ -1,6 +1,4 @@
-package com.joy.gymbuddy.meals;
-
-import jakarta.persistence.Column;
+package com.joy.gymbuddy.meals.dto;
 
 public record MealDTO(String name,
                       String brand,

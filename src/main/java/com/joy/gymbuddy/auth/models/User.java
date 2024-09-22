@@ -1,10 +1,8 @@
 package com.joy.gymbuddy.auth.models;
 
 import com.joy.gymbuddy.BaseEntity;
-import com.joy.gymbuddy.auth.enums.Role;
+import com.joy.gymbuddy.auth.models.enums.Role;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

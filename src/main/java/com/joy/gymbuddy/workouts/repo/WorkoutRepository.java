@@ -1,5 +1,6 @@
-package com.joy.gymbuddy.workouts;
+package com.joy.gymbuddy.workouts.repo;
 
+import com.joy.gymbuddy.workouts.model.entities.Workout;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

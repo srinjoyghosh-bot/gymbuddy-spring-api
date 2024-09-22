@@ -1,6 +1,10 @@
-package com.joy.gymbuddy.workouts;
+package com.joy.gymbuddy.workouts.service;
 
 import com.joy.gymbuddy.auth.models.User;
+import com.joy.gymbuddy.workouts.model.entities.Workout;
+import com.joy.gymbuddy.workouts.model.entities.WorkoutPR;
+import com.joy.gymbuddy.workouts.repo.WorkoutPRRepository;
+import com.joy.gymbuddy.workouts.repo.WorkoutRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;

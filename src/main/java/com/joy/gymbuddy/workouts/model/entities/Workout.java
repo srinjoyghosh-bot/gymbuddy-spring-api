@@ -1,8 +1,9 @@
-package com.joy.gymbuddy.workouts;
+package com.joy.gymbuddy.workouts.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.joy.gymbuddy.BaseEntity;
 import com.joy.gymbuddy.auth.models.Profile;
+import com.joy.gymbuddy.workouts.model.Repetition;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -14,7 +15,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 

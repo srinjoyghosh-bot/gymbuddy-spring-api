@@ -1,14 +1,14 @@
-package com.joy.gymbuddy.meals;
+package com.joy.gymbuddy.meals.service;
 
-import com.joy.gymbuddy.auth.models.Profile;
 import com.joy.gymbuddy.auth.models.User;
+import com.joy.gymbuddy.meals.models.Meal;
+import com.joy.gymbuddy.meals.repo.MealRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
